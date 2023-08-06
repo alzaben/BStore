@@ -1,0 +1,120 @@
+﻿@model ProductVM
+
+<div class="card shadow border-0 my-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+    <div class="row">
+        <div class="col-12 text-center">
+                <h2 class="text-white py-2"> @(Model.GetProduct.ProductId!= 0 ? "Update" : "Create") Product</h2>
+        </div>
+    </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row" enctype="multipart/form-data">
+            <input asp-for="GetProduct.ProductId" hidden />
+            <input asp-for="GetProduct.ImgUrl" hidden />
+            <div class="row">
+                <div class="col-10">
+                    <div class="border p-3">
+                        @*<div asp-validation-summary="ModelOnly"></div>*@
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="GetProduct.Title" class="form-control border-0 shadow" />
+                            <label asp-for="GetProduct.Title" class="ms-2"></label>
+                            <span asp-validation-for="GetProduct.Title" class="text-danger"></span>
+                        </div>
+                        <div class="py-2 col-12">
+                            <label asp-for="GetProduct.Description" class="ms-2 text-muted"></label>
+                            <textarea asp-for="GetProduct.Description" class="form-control border-0 shadow"></textarea>
+                        </div>
+
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="GetProduct.ISBN" class="form-control border-0 shadow" />
+                            <label asp-for="GetProduct.ISBN" class="ms-2"></label>
+                            <span asp-validation-for="GetProduct.ISBN" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="GetProduct.Author" class="form-control border-0 shadow" />
+                            <label asp-for="GetProduct.Author" class="ms-2"></label>
+                            <span asp-validation-for="GetProduct.Author" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="GetProduct.ListPrice" class="form-control border-0 shadow" />
+                            <label asp-for="GetProduct.ListPrice" class="ms-2"></label>
+                            <span asp-validation-for="GetProduct.ListPrice" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="GetProduct.Price" class="form-control border-0 shadow" />
+                            <label asp-for="GetProduct.Price" class="ms-2"></label>
+                            <span asp-validation-for="GetProduct.Price" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="GetProduct.Price50" class="form-control border-0 shadow" />
+                            <label asp-for="GetProduct.Price50" class="ms-2"></label>
+                            <span asp-validation-for="GetProduct.Price50" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="GetProduct.Price100" class="form-control border-0 shadow" />
+                            <label asp-for="GetProduct.Price100" class="ms-2"></label>
+                            <span asp-validation-for="GetProduct.Price100" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-2 col-12">
+                            <select asp-for="@Model.GetProduct.CategoryId" asp-items="@Model.CategoryList" class="form-select border-0 shadow">
+                                <option disabled selected>--Select Category--</option>
+                            </select>
+                            <label asp-for="GetProduct.CategoryId" class="ms-2"></label>
+                            <span asp-validation-for="GetProduct.CategoryId" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input type="file" name="file" class="form-control border-0 shadow" multiple />
+                            <label asp-for="GetProduct.ImgUrl" class="ms-2"></label>
+                        </div>
+                        <div class="row pt-2">
+                            <div class="col-6 col-md-3">
+                                @if (Model.GetProduct.ProductId != 0)
+                                {
+                                    <button type="submit" class="btn btn-primary form-control">Update</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary form-control">Create</button>
+                                }
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <a asp-controller="Product" asp-action="Index" class="btn btn-outline-primary border  form-control">
+                                    Back to List
+                                </a>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-2">
+                    <img src="~/@Model.GetProduct.ImgUrl" width="100%"
+                    style="border-radius:5px;border:1px solid #bbb9b9"/>
+                </div>
+            </div>
+           
+          
+           
+        </form>
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons  lists   table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough |  align lineheight | numlist bullist indent outdent',
+        });
+    </script>
+    @{
+    <partial name="_ValidationScriptsPartial"/>
+    }
+}
